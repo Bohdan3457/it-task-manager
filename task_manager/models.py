@@ -21,4 +21,7 @@ class Worker(AbstractUser):
 
     def __str__(self):
         return f"{self.username} ({self.position.name if self.position else 'No position'})"
+
+class TaskType(models.Model):
+    name = models.CharField(max_length=255),
     
