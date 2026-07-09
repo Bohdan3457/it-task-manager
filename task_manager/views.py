@@ -17,8 +17,15 @@ def index(request) -> HttpResponse:
 
     return render(request, "task_manager/index.html", context=context)
 
-class TaskListView(LoginRequiredMixin,generic.ListView):
+
+class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     context_object_name = "task_list"
     template_name = "task_manager/task_list.html"
-    
+
+
+class WorkerListView(LoginRequiredMixin, generic.ListView):
+    model = Worker
+    context_object_name = "worker_list"
+    template_name = "task_manager/worker_list.html"
+
