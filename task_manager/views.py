@@ -4,7 +4,8 @@ from .models import Worker, Position, Task
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .forms import TaskForm
+from .forms import TaskForm, WorkerCreationForm
+
 
 
 def index(request) -> HttpResponse:
@@ -44,6 +45,13 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
     context_object_name = "worker_list"
     template_name = "task_manager/worker_list.html"
+
+
+class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Worker
+    form_class = WorkerCreationForm
+    template_name = "task_manager/worker_form.html"
+    success_url = reverse_lazy("task_manager:worker-list")
 
 
 class PositionListView(LoginRequiredMixin, generic.ListView):
