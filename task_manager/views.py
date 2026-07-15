@@ -1,4 +1,3 @@
-
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Worker, Position, Task
@@ -41,6 +40,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "task_manager/task_form.html"
     success_url = reverse_lazy("task_manager:task-list")
 
+
 class TaskUpdateView(LoginRequiredMixin,generic.UpdateView):
     model = Task
     form_class = TaskForm
@@ -67,6 +67,19 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("task_manager:worker-list")
 
 
+class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Worker
+    fields = ["first_name", "last_name", "email", "position", "username"]
+    template_name = "task_manager/worker_update.html"
+    success_url = reverse_lazy("task_manager:worker-list")
+
+
+class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Worker
+    template_name = "task_manager/worker_delete.html"
+    success_url = reverse_lazy("task_manager:worker-list")
+
+
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
     context_object_name = "position_list"
@@ -78,3 +91,17 @@ class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     fields = ["name"]
     template_name = "task_manager/position_form.html"
     success_url = reverse_lazy("task_manager:position-list")
+
+
+class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Position
+    fields = ["name"]
+    template_name = "task_manager/position_update.html"
+    success_url = reverse_lazy("task_manager:position-list")
+
+
+class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Position
+    template_name = "task_manager/position_delete.html"
+    success_url = reverse_lazy("task_manager:position-list")
+
