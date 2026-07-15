@@ -1,3 +1,4 @@
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Worker, Position, Task
@@ -38,6 +39,18 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     form_class = TaskForm
     template_name = "task_manager/task_form.html"
+    success_url = reverse_lazy("task_manager:task-list")
+
+class TaskUpdateView(LoginRequiredMixin,generic.UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = "task_manager/task_update.html"
+    success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskDeleteView(LoginRequiredMixin,generic.DeleteView):
+    model = Task
+    template_name = "task_manager/task_delete.html"
     success_url = reverse_lazy("task_manager:task-list")
 
 

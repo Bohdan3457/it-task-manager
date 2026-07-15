@@ -1,49 +1,79 @@
 {% extends "task_manager/base.html" %}
 
-{% block title %}Position - IT Task Manager{% endblock %}
+{% block title %}Positions - IT Task Manager{% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Position List</h2>
-        <a href="{% url 'task_manager:position-create' %}" class="btn btn-primary"><i class="bi bi-plus-lg"></i>Create Position</a>
+<div class="container py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <h1 class="h3 mb-1 text-gray-800">Positions & Roles</h1>
+            <p class="text-muted mb-0">Manage job titles and roles within your development teams.</p>
+        </div>
+        <a href="{% url 'task_manager:position-create' %}" class="btn btn-primary d-inline-flex align-items-center gap-2 shadow-sm">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Add Position</span>
+        </a>
     </div>
 
-   <div class="table-responsive card shadow-sm border-0">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th class="ps-3"> Position Name</th>
-                    <th></th> </tr>
-            </thead>
-            <tbody>
-                {% for position in position_list %}
-                    <tr>
-                        <td class="ps-3">
-                            <a href="" class="text-decoration-none link-dark fw-semibold row-link">
-                                {{ position.name }}
-                            </a>
-                        </td>
+    {% if position_list %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for position in position_list %}
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 hover-shadow transition">
+                        <div class="card-body p-4 d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="p-3 bg-primary-subtle text-primary rounded-3">
+                                        <i class="bi bi-briefcase-fill fs-4"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0 fw-bold text-dark">{{ position.name }}</h5>
+                                </div>
+                                <p class="text-muted small">
+                                    
+                                </p>
+                            </div>
 
-                        <td class="text-end pe-3">
-                            <a href="#" class="btn btn-sm btn-outline-primary border-0" title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                            <a href="#" class="btn btn-sm btn-outline-danger border-0 ms-1" title="Delete"><i class="bi bi-trash-fill"></i></a>
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="2" class="text-center text-muted py-2">
-                            <i class="bi bi-info-circle me-2 fs-5"></i> No real positions available in database yet.
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                            <hr class="text-muted my-3 opacity-25">
 
-    <style>
-        .row-link:hover {
-            color: #0d6efd !important;
-        }
-    </style>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted small">
+                                    <i class="bi bi-people me-1"></i> Active Role
+                                </span>
+                                <div class="d-flex gap-2">
+                                    <a href="#" class="btn btn-sm btn-light text-muted border" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-light text-danger border" title="Delete">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card border-0 shadow-sm rounded-3 py-5 text-center">
+            <div class="card-body">
+                <i class="bi bi-briefcase text-muted fs-1 d-block mb-3"></i>
+                <h4 class="text-dark">No Positions Yet</h4>
+                <p class="text-muted mb-4">Create your first job position to start organizing your team.</p>
+                <a href="{% url 'task_manager:position-create' %}" class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-2"></i>Create First Position
+                </a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.08)!important;
+    }
+    .transition {
+        transition: all 0.25s ease-in-out;
+    }
+</style>
 {% endblock %}
-

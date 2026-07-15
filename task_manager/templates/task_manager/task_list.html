@@ -3,62 +3,112 @@
 {% block title %}Tasks - IT Task Manager{% endblock %}
 
 {% block content %}
+<div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>📋 Task List</h2>
-        <a href="{% url 'task_manager:task-create' %}" class="btn btn-primary">
-            <i class="bi bi-plus-lg"></i> Create Task
+        <div>
+            <h1 class="h3 mb-1 text-gray-800 fw-bold">Workspace Tasks</h1>
+            <p class="text-muted mb-0 small">Track and manage your team's tasks.</p>
+        </div>
+        <a href="{% url 'task_manager:task-create' %}" class="btn btn-primary rounded-pill px-4">
+            <i class="bi bi-plus-lg"></i> Add Task
         </a>
     </div>
 
-    <div class="table-responsive card shadow-sm border-0">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th class="ps-3">Task Name</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th class="text-end pe-3">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for task in task_list %}
-                    <tr>
-                        <td class="ps-3">
-                            <a href="{% url 'task_manager:task' task.id %}" class="text-decoration-none link-dark fw-semibold row-link">
-                                {{ task.name }}
-                            </a>
-                        </td>
-                        <td>
-                            <span class="badge {% if task.priority == 'Urgent' %}bg-danger{% elif task.priority == 'High' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">
-                                {{ task.priority }}
-                            </span>
-                        </td>
-                        <td>
-                            {% if task.is_completed %}
-                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3">Completed</span>
-                            {% else %}
-                                <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-3">In Progress</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-end pe-3">
-                            <a href="#" class="btn btn-sm btn-outline-primary border-0" title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                            <a href="#" class="btn btn-sm btn-outline-danger border-0 ms-1" title="Delete"><i class="bi bi-trash-fill"></i></a>
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="4" class="text-center text-muted py-4">
-                            <i class="bi bi-info-circle me-2 fs-5"></i> No real tasks available in database yet.
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <div class="d-flex flex-column gap-3">
+        {% if task_list %}
+            {% for task in task_list %}
+                <div class="card border-0 shadow-sm rounded-3 hover-shadow transition position-relative"
+                     style="border-left: 4px solid {% if task.is_completed %}#198754{% elif task.priority == 'URGENT' or task.priority == 'HIGH' %}#dc3545{% elif task.priority == 'MEDIUM' %}#ffc107{% else %}#6610f2{% endif %} !important;">
 
-    <style>
-        .row-link:hover {
-            color: #0d6efd !important;
-        }
-    </style>
+                    <div class="card-body p-3 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+
+                        <div class="d-flex align-items-center gap-3">
+                            <a href="#" class="text-decoration-none fs-4 transition hover-scale position-relative z-index-10">
+                                {% if task.is_completed %}
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                {% else %}
+                                    <i class="bi bi-circle text-secondary hover-success"></i>
+                                {% endif %}
+                            </a>
+
+                            <div>
+                                <a href="{% url 'task_manager:task' pk=task.id %}" class="fs-5 fw-bold text-decoration-none stretched-link {% if task.is_completed %}text-decoration-line-through text-muted{% else %}text-dark hover-primary{% endif %}">
+                                    {{ task.name }}
+                                </a>
+                                <div class="d-flex align-items-center gap-2 mt-1 fs-8">
+                                    <span class="badge bg-light text-secondary border">{{ task.task_type.name }}</span>
+                                    <span class="text-muted"><i class="bi bi-calendar3 me-1"></i>{{ task.deadline|date:"M d" }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between justify-content-md-end gap-3">
+                            <span class="badge rounded-pill px-3 py-1.5 fs-8 text-uppercase {% if task.is_completed %}bg-success-subtle text-success{% elif task.priority == 'HIGH' or task.priority == 'URGENT' %}bg-danger-subtle text-danger{% elif task.priority == 'MEDIUM' %}bg-warning-subtle text-warning-emphasis{% else %}bg-primary-subtle text-primary{% endif %}">
+                                {% if task.is_completed %}Done{% else %}{{ task.priority }}{% endif %}
+                            </span>
+
+                            <div class="dropdown position-relative z-index-10">
+                                <button class="btn btn-sm btn-light border-0 text-muted rounded-circle d-flex align-items-center justify-content-center"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                        style="width: 32px; height: 32px; padding: 0;">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 fs-8">
+                                    <li>
+                                        <a class="dropdown-item py-2" href="{% url 'task_manager:task-update' pk=task.id %}">
+                                            <i class="bi bi-pencil me-2 text-primary"></i> Edit Task
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider my-1 opacity-10"></li>
+                                    <li>
+                                        <a class="dropdown-item py-2 text-danger" href="{% url 'task_manager:task-delete' pk=task.id %}">
+                                            <i class="bi bi-trash me-2"></i> Delete Task
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center py-5 bg-white rounded-3 shadow-sm border border-dashed">
+                <i class="bi bi-card-checklist text-muted fs-1 d-block mb-3"></i>
+                <p class="text-muted mb-0">No tasks created yet.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .card {
+        cursor: pointer;
+    }
+    .hover-shadow:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.08)!important;
+    }
+    .transition { transition: all 0.2s ease-in-out; }
+    .fs-8 { font-size: 0.75rem; }
+    .hover-primary:hover { color: #4e73df !important; }
+
+    .hover-scale:hover {
+        transform: scale(1.15);
+    }
+    .hover-success:hover::before {
+        content: "\f272";
+        font-family: bootstrap-icons !important;
+        color: #198754 !important;
+    }
+    .dropdown-item:hover {
+        background-color: #f8f9fc;
+    }
+    .z-index-10 {
+        position: relative;
+        z-index: 10;
+    }
+</style>
 {% endblock %}
