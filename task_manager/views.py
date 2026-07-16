@@ -5,9 +5,10 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import TaskForm, WorkerCreationForm
+from django.contrib.auth.decorators import login_required
 
 
-
+@login_required
 def index(request) -> HttpResponse:
     num_task = Task.objects.count()
     num_worker = Worker.objects.count()

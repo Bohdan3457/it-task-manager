@@ -124,3 +124,7 @@ AUTH_USER_MODEL = "task_manager.Worker"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+LOGIN_REDIRECT_URL = "task_manager:index"
+
+LOGOUT_REDIRECT_URL = "login"
