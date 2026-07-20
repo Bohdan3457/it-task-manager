@@ -15,6 +15,24 @@
         </a>
     </div>
 
+    <div class="card border-0 shadow-sm rounded-3 p-3 mb-4">
+        <form method="get" class="d-flex gap-2">
+            <input
+                type="text"
+                name="username"
+                class="form-control"
+                placeholder="Search workers by username..."
+                value="{{ request.GET.username|default:'' }}"
+            >
+            <button type="submit" class="btn btn-primary px-4">
+                Search
+            </button>
+            <a href="{% url 'task_manager:worker-list' %}" class="btn btn-outline-secondary">
+                Reset
+            </a>
+        </form>
+    </div>
+
     <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
         <div class="card-body p-0">
             {% if worker_list %}
