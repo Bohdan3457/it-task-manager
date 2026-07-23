@@ -20,5 +20,6 @@ urlpatterns = [
     path("worker/update/<int:pk>/", WorkerUpdateView.as_view(), name="worker-update"),
     path("worker/delete/<int:pk>/", WorkerDeleteView.as_view(), name="worker-delete"),
     path("position/update/<int:pk>/", PositionUpdateView.as_view(), name="position-update"),
-    path("position/delete/<int:pk>/", PositionDeleteView.as_view(), name="position-delete")
+    path("position/delete/<int:pk>/", PositionDeleteView.as_view(), name="position-delete"),
+
 ]
