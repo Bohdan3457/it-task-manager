@@ -19,7 +19,8 @@ class Worker(AbstractUser):
     )
 
     def __str__(self):
-        return f"{self.username} ({self.position.name if self.position else 'No position'})"
+        return (f"{self.username}"
+                f" ({self.position.name if self.position else 'No position'})")
 
 
 class TaskType(models.Model):
@@ -41,7 +42,11 @@ class Task(models.Model):
     description = models.TextField()
     deadline = models.DateTimeField()
     is_completed = models.BooleanField(default=False)
-    priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default="MEDIUM")
+    priority = models.CharField(
+        max_length=10,
+        choices=PRIORITY_CHOICES,
+        default="MEDIUM"
+    )
     task_type = models.ForeignKey(
         TaskType,
         on_delete=models.CASCADE,

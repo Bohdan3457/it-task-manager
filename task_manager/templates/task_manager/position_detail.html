@@ -1,0 +1,114 @@
+{% extends "task_manager/base.html" %}
+
+{% block title %}{{ position.name }} - TaskDesk{% endblock %}
+
+{% block content %}
+<style>
+    .detail-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+    }
+    .table-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+        overflow: hidden;
+    }
+    .avatar-sm {
+        width: 32px;
+        height: 32px;
+        background: #e0f2fe;
+        color: #0284c7;
+        font-size: 0.85rem;
+        font-weight: bold;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<div class="container-fluid p-0">
+    <div class="mb-3">
+        <a href="{% url 'task_manager:position-list' %}" class="btn btn-sm btn-white border px-3 rounded-3 shadow-sm text-muted fw-medium">
+            <i class="bi bi-arrow-left me-1"></i> Back to Positions
+        </a>
+    </div>
+
+    <div class="detail-card mb-4">
+        <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3">
+            <div>
+                <span class="text-muted small fw-semibold text-uppercase d-block mb-1">Position Title</span>
+                <h3 class="fw-bold text-dark mb-1">{{ position.name }}</h3>
+                <p class="text-muted small mb-0">Total Workers in this position: <strong>{{ position.workers.count }}</strong></p>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 w-100 w-sm-auto">
+                <a href="{% url 'task_manager:position-update' pk=position.id %}" class="btn btn-light border px-3 rounded-3 fw-medium">
+                    <i class="bi bi-pencil me-1"></i> Edit
+                </a>
+                <a href="{% url 'task_manager:position-delete' pk=position.id %}" class="btn btn-outline-danger px-3 rounded-3 fw-medium">
+                    <i class="bi bi-trash me-1"></i> Delete
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="px-4 py-3 border-bottom">
+            <h5 class="fw-bold text-dark mb-0">Workers with this Position</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead class="bg-light text-muted small text-uppercase">
+                    <tr>
+                        <th class="ps-4">Worker</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th class="text-end pe-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for worker in position.workers.all %}
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="avatar-sm">
+                                    {{ worker.first_name|first|upper }}{{ worker.last_name|first|upper }}
+                                </div>
+                                <a href="{% url 'task_manager:worker-detail' pk=worker.id %}" class="fw-bold text-dark text-decoration-none">
+                                    {% if worker.first_name or worker.last_name %}
+                                        {{ worker.first_name }} {{ worker.last_name }}
+                                    {% else %}
+                                        {{ worker.username }}
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="text-muted">@{{ worker.username }}</span>
+                        </td>
+                        <td>
+                            <span class="text-dark">{{ worker.email|default:"Not provided" }}</span>
+                        </td>
+                        <td class="text-end pe-4">
+                            <a href="{% url 'task_manager:worker-detail' pk=worker.id %}" class="btn btn-sm btn-light border rounded-3">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">No workers assigned to this position yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,134 +1,164 @@
 {% extends "task_manager/base.html" %}
 
-{% block title %}Workers - IT Task Manager{% endblock %}
+{% block title %}Workers - TaskDesk{% endblock %}
 
 {% block content %}
-<div class="container py-4">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+<style>
+    .table-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02);
+    }
+    .extra-small {
+        font-size: 0.75rem;
+    }
+    .dropdown-item.active, .dropdown-item:active {
+        background-color: #4f46e5;
+    }
+    .table-responsive {
+        overflow: visible !important;
+    }
+    .dropdown-menu {
+        z-index: 1050 !important;
+    }
+</style>
+
+<div class="container-fluid p-0">
+
+    <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3 mb-4">
         <div>
-            <h1 class="h3 mb-1 text-gray-800">Team Members</h1>
-            <p class="text-muted mb-0">Manage your company's workers and their roles.</p>
+            <h3 class="fw-bold text-dark mb-1">Workers</h3>
+            <p class="text-muted small mb-0">Overview of all team members and their roles.</p>
         </div>
-        <a href="{% url 'task_manager:worker-create' %}" class="btn btn-primary d-inline-flex align-items-center gap-2 shadow-sm">
-            <i class="bi bi-person-plus-fill"></i>
-            <span>Add Worker</span>
-        </a>
-    </div>
-
-    <div class="card border-0 shadow-sm rounded-3 p-3 mb-4">
-        <form method="get" class="d-flex gap-2">
-            <input
-                type="text"
-                name="username"
-                class="form-control"
-                placeholder="Search workers by username..."
-                value="{{ request.GET.username|default:'' }}"
-            >
-            <button type="submit" class="btn btn-primary px-4">
-                Search
-            </button>
-            <a href="{% url 'task_manager:worker-list' %}" class="btn btn-outline-secondary">
-                Reset
-            </a>
-        </form>
-    </div>
-
-    <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-        <div class="card-body p-0">
-            {% if worker_list %}
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light text-uppercase fs-7 fw-semibold text-muted">
-                            <tr>
-                                <th class="ps-4 py-3">Member</th>
-                                <th class="py-3">Username</th>
-                                <th class="py-3">Position</th>
-                                <th class="py-3 text-end pe-4">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="border-top-0">
-                            {% for worker in worker_list %}
-                                <tr>
-                                    <td class="ps-4 py-3">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="avatar bg-light text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px; border: 1px solid #e3e6f0;">
-                                                {{ worker.first_name|slice:":1" }}{{ worker.last_name|slice:":1"|default:worker.username|slice:":1"|upper }}
-                                            </div>
-                                            <div>
-                                                <span class="d-block fw-semibold text-dark">{{ worker.first_name }} {{ worker.last_name }}</span>
-                                                <small class="text-muted">{{ worker.email|default:"No email added" }}</small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3">
-                                        <span class="text-monospace text-muted">@{{ worker.username }}</span>
-                                    </td>
-                                    <td class="py-3">
-                                        {% if worker.position %}
-                                            <span class="badge bg-info-subtle text-info rounded-pill px-3 py-2 border border-info-subtle fs-7">
-                                                {{ worker.position.name }}
-                                            </span>
-                                        {% else %}
-                                            <span class="badge bg-light text-secondary rounded-pill px-3 py-2 border fs-7">
-                                                No Position
-                                            </span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="py-3 text-end pe-4">
-                                        <div class="dropdown">
-                                            <button class="btn btn-link text-muted p-0 border-0" type="button" data-bs-toggle="dropdown">
-                                                <i class="bi bi-three-dots-vertical"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                                                <li><a class="dropdown-item py-2" href="{% url 'task_manager:worker-update' pk=worker.id %}"><i class="bi bi-pencil me-2 text-muted"></i> Edit</a></li>
-                                                <li><a class="dropdown-item py-2 text-danger" href="{% url 'task_manager:worker-delete' pk=worker.id %}"><i class="bi bi-trash me-2"></i> Delete</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            {% else %}
-                <div class="text-center py-5">
-                    <i class="bi bi-people text-muted fs-1 d-block mb-3"></i>
-                    <p class="text-muted mb-0">No workers found in the system.</p>
-                </div>
+        <div class="d-flex gap-2">
+            {% if request.GET.username or request.GET.position %}
+                <a href="{% url 'task_manager:worker-list' %}" class="btn btn-light border text-muted fw-medium rounded-3 px-3">
+                    <i class="bi bi-x-lg me-1"></i> Clear Filters
+                </a>
             {% endif %}
+            <a href="{% url 'task_manager:worker-create' %}" class="btn btn-primary px-3 rounded-3 shadow-sm fw-medium">
+                <i class="bi bi-plus-lg me-1"></i> New Worker
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card mb-4">
+        <div class="table-responsive">
+            <table class="table align-middle mb-0" style="table-layout: fixed; width: 100%;">
+                <thead class="bg-light text-muted small text-uppercase border-bottom">
+                    <tr>
+                        <th class="ps-4 py-3" style="width: 35%;">
+                            <div class="d-inline-flex align-items-center gap-1 w-100">
+                                <span class="fw-bold text-nowrap">Worker Name</span>
+                                <div class="dropdown d-inline">
+                                    <button class="btn btn-sm btn-link text-muted p-0 border-0 ms-1" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                                        <i class="bi bi-funnel{% if request.GET.username %}-fill text-primary{% endif %} extra-small"></i>
+                                    </button>
+                                    <form method="get" class="dropdown-menu p-2 shadow border" style="width: 220px;">
+                                        <input type="text" name="username" class="form-control form-control-sm" placeholder="Search & press Enter..." value="{{ request.GET.username|default:'' }}">
+                                        <input type="hidden" name="position" value="{{ request.GET.position|default:'' }}">
+                                    </form>
+                                </div>
+                            </div>
+                        </th>
+
+                        <th class="py-3" style="width: 30%;">
+                            <div class="dropdown">
+                                <button class="btn btn-link text-muted text-decoration-none p-0 fw-bold extra-small text-uppercase dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
+                                    Position {% if request.GET.position %}<span class="text-primary">•</span>{% endif %}
+                                </button>
+                                <ul class="dropdown-menu shadow border extra-small">
+                                    <li>
+                                        <a class="dropdown-item {% if not request.GET.position %}active{% endif %}"
+                                           href="?username={{ request.GET.username|default:'' }}">
+                                           All Positions
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider my-1"></li>
+                                    {% for pos in positions %}
+                                        <li>
+                                            <a class="dropdown-item {% if request.GET.position == pos.id|stringformat:'s' %}active{% endif %}"
+                                               href="?position={{ pos.id }}&username={{ request.GET.username|default:'' }}">
+                                               {{ pos.name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </th>
+
+                        <th class="py-3 fw-bold text-nowrap" style="width: 20%;">Username</th>
+
+                        <th class="text-end pe-4 py-3 fw-bold text-nowrap" style="width: 15%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for worker in worker_list %}
+                    <tr>
+                        <td class="ps-4">
+                            <a href="{% url 'task_manager:worker-detail' pk=worker.id %}" class="fw-semibold text-dark text-decoration-none d-block">
+                                {{ worker.first_name }} {{ worker.last_name }}
+                                {% if worker == request.user %}
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle ms-1 extra-small">Me</span>
+                                {% endif %}
+                            </a>
+                            <span class="text-muted extra-small">{{ worker.email|default:"No email" }}</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark border rounded-pill">
+                                {{ worker.position.name|default:"No position" }}
+                            </span>
+                        </td>
+                        <td class="text-muted small">@{{ worker.username }}</td>
+                        <td class="text-end pe-4">
+                            <div class="btn-group">
+                                <a href="{% url 'task_manager:worker-detail' pk=worker.id %}" class="btn btn-sm btn-light border" title="View profile">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="{% url 'task_manager:worker-update' pk=worker.id %}" class="btn btn-sm btn-light border" title="Edit worker">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="{% url 'task_manager:worker-delete' pk=worker.id %}" class="btn btn-sm btn-light border text-danger" title="Delete worker">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">No workers found matching your criteria.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
     {% if is_paginated %}
-    <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
-
+    <nav class="d-flex justify-content-center">
+        <ul class="pagination pagination-sm gap-1">
             {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?{% if request.GET.username %}username={{ request.GET.username }}&{% endif %}page={{ page_obj.previous_page_number }}">
-                        Previous
+                    <a class="page-link rounded-2 border text-dark"
+                       href="?page={{ page_obj.previous_page_number }}&username={{ request.GET.username|default:'' }}&position={{ request.GET.position|default:'' }}">
+                       &laquo;
                     </a>
                 </li>
-            {% else %}
-                <li class="page-item disabled"><span class="page-link">Previous</span></li>
             {% endif %}
 
-            <li class="page-item disabled">
-                <span class="page-link bg-white text-dark">
-                    Page {{ page_obj.number }} of {{ paginator.num_pages }}
-                </span>
+            <li class="page-item active">
+                <span class="page-link rounded-2">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
             </li>
 
             {% if page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?{% if request.GET.username %}username={{ request.GET.username }}&{% endif %}page={{ page_obj.next_page_number }}">
-                        Next
+                    <a class="page-link rounded-2 border text-dark"
+                       href="?page={{ page_obj.next_page_number }}&username={{ request.GET.username|default:'' }}&position={{ request.GET.position|default:'' }}">
+                       &raquo;
                     </a>
                 </li>
-            {% else %}
-                <li class="page-item disabled"><span class="page-link">Next</span></li>
             {% endif %}
-
         </ul>
     </nav>
     {% endif %}
