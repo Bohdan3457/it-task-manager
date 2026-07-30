@@ -10,7 +10,6 @@ class TaskForm(forms.ModelForm):
         required=False
     )
 
-
     class Meta:
         model = Task
         fields = "__all__"
@@ -18,7 +17,7 @@ class TaskForm(forms.ModelForm):
             "deadline": forms.DateTimeInput(
                 attrs={
                     "type": "datetime-local",
-                    "class":"form-control"
+                    "class": "form-control"
                 },
                 format='%Y-%m-%d T%H:%M'
             ),

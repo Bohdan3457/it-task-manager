@@ -1,0 +1,9 @@
+[flake8]
+max-line-length = 88
+ignore = Q000, ANN101, ANN001, ANN201, ANN204, ANN003, E203, W503
+exclude =
+    .git,
+    __pycache__,
+    migrations,
+    venv,
+    .venv

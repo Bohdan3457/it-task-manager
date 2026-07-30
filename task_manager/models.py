@@ -5,7 +5,7 @@ from django.db import models
 class Position(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -18,7 +18,7 @@ class Worker(AbstractUser):
         related_name="workers",
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (f"{self.username}"
                 f" ({self.position.name if self.position else 'No position'})")
 
@@ -26,7 +26,7 @@ class Worker(AbstractUser):
 class TaskType(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -58,5 +58,5 @@ class Task(models.Model):
         related_name="tasks",
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.name} ({self.priority})"
