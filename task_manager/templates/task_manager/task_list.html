@@ -49,11 +49,11 @@
         </div>
         <div class="d-flex gap-2">
             {% if request.GET.name or request.GET.task_type or request.GET.priority or request.GET.status or request.GET.position %}
-                <a href="{% url 'task-manager:task-list' %}" class="btn btn-light border text-muted fw-medium rounded-3 px-3">
+                <a href="{% url 'task_manager:task-list' %}" class="btn btn-light border text-muted fw-medium rounded-3 px-3">
                     <i class="bi bi-x-lg me-1"></i> Clear Filters
                 </a>
             {% endif %}
-            <a href="{% url 'task-manager:task-create' %}" class="btn btn-primary px-3 rounded-3 shadow-sm fw-medium">
+            <a href="{% url 'task_manager:task-create' %}" class="btn btn-primary px-3 rounded-3 shadow-sm fw-medium">
                 <i class="bi bi-plus-lg me-1"></i> New Task
             </a>
         </div>
@@ -64,114 +64,11 @@
             <table class="table align-middle mb-0" style="table-layout: fixed; width: 100%;">
                 <thead class="bg-light text-muted small text-uppercase border-bottom">
                     <tr>
-                        <th class="ps-4 py-3" style="width: 26%;">
-                            <div class="d-inline-flex align-items-center gap-1 w-100">
-                                <span class="fw-bold text-nowrap">Task Name</span>
-                                <div class="dropdown d-inline">
-                                    <button class="btn btn-sm btn-link text-muted p-0 border-0 ms-1" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                                        <i class="bi bi-funnel{% if request.GET.name %}-fill text-primary{% endif %} extra-small"></i>
-                                    </button>
-                                    <form method="get" class="dropdown-menu p-2 shadow border" style="width: 200px;">
-                                        <input type="text" name="name" class="form-control form-control-sm" placeholder="Search & press Enter..." value="{{ request.GET.name|default:'' }}">
-                                        <input type="hidden" name="task_type" value="{{ request.GET.task_type|default:'' }}">
-                                        <input type="hidden" name="priority" value="{{ request.GET.priority|default:'' }}">
-                                        <input type="hidden" name="status" value="{{ request.GET.status|default:'' }}">
-                                        <input type="hidden" name="position" value="{{ request.GET.position|default:'' }}">
-                                    </form>
-                                </div>
-                            </div>
-                        </th>
-
-                        <th class="py-3" style="width: 14%;">
-                            <div class="dropdown">
-                                <button class="btn btn-link text-muted text-decoration-none p-0 fw-bold extra-small text-uppercase dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
-                                    Type {% if request.GET.task_type %}<span class="text-primary">•</span>{% endif %}
-                                </button>
-                                <ul class="dropdown-menu shadow border extra-small">
-                                    <li>
-                                        <a class="dropdown-item {% if not request.GET.task_type %}active{% endif %}"
-                                           href="?name={{ request.GET.name|default:'' }}&priority={{ request.GET.priority|default:'' }}&status={{ request.GET.status|default:'' }}&position={{ request.GET.position|default:'' }}">
-                                           All Types
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider my-1"></li>
-                                    {% for type in task_types %}
-                                        <li>
-                                            <a class="dropdown-item {% if request.GET.task_type == type.id|stringformat:'s' %}active{% endif %}"
-                                               href="?task_type={{ type.id }}&name={{ request.GET.name|default:'' }}&priority={{ request.GET.priority|default:'' }}&status={{ request.GET.status|default:'' }}&position={{ request.GET.position|default:'' }}">
-                                               {{ type.name }}
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </th>
-
-                        <th class="py-3" style="width: 14%;">
-                            <div class="dropdown">
-                                <button class="btn btn-link text-muted text-decoration-none p-0 fw-bold extra-small text-uppercase dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
-                                    Priority {% if request.GET.priority %}<span class="text-primary">•</span>{% endif %}
-                                </button>
-                                <ul class="dropdown-menu shadow border extra-small">
-                                    <li>
-                                        <a class="dropdown-item {% if not request.GET.priority %}active{% endif %}"
-                                           href="?name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&status={{ request.GET.status|default:'' }}&position={{ request.GET.position|default:'' }}">
-                                           All Priorities
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider my-1"></li>
-                                    <li><a class="dropdown-item {% if request.GET.priority == 'URGENT' %}active{% endif %}" href="?priority=URGENT&name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&status={{ request.GET.status|default:'' }}&position={{ request.GET.position|default:'' }}">Urgent</a></li>
-                                    <li><a class="dropdown-item {% if request.GET.priority == 'HIGH' %}active{% endif %}" href="?priority=HIGH&name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&status={{ request.GET.status|default:'' }}&position={{ request.GET.position|default:'' }}">High</a></li>
-                                    <li><a class="dropdown-item {% if request.GET.priority == 'MEDIUM' %}active{% endif %}" href="?priority=MEDIUM&name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&status={{ request.GET.status|default:'' }}&position={{ request.GET.position|default:'' }}">Medium</a></li>
-                                    <li><a class="dropdown-item {% if request.GET.priority == 'LOW' %}active{% endif %}" href="?priority=LOW&name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&status={{ request.GET.status|default:'' }}&position={{ request.GET.position|default:'' }}">Low</a></li>
-                                </ul>
-                            </div>
-                        </th>
-
-                        <th class="py-3" style="width: 14%;">
-                            <div class="dropdown">
-                                <button class="btn btn-link text-muted text-decoration-none p-0 fw-bold extra-small text-uppercase dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
-                                    Status {% if request.GET.status %}<span class="text-primary">•</span>{% endif %}
-                                </button>
-                                <ul class="dropdown-menu shadow border extra-small">
-                                    <li>
-                                        <a class="dropdown-item {% if not request.GET.status %}active{% endif %}"
-                                           href="?name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&priority={{ request.GET.priority|default:'' }}&position={{ request.GET.position|default:'' }}">
-                                           All Statuses
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider my-1"></li>
-                                    <li><a class="dropdown-item {% if request.GET.status == 'in_progress' %}active{% endif %}" href="?status=in_progress&name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&priority={{ request.GET.priority|default:'' }}&position={{ request.GET.position|default:'' }}">In Progress</a></li>
-                                    <li><a class="dropdown-item {% if request.GET.status == 'completed' %}active{% endif %}" href="?status=completed&name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&priority={{ request.GET.priority|default:'' }}&position={{ request.GET.position|default:'' }}">Completed</a></li>
-                                </ul>
-                            </div>
-                        </th>
-
-                        <th class="py-3" style="width: 18%;">
-                            <div class="dropdown">
-                                <button class="btn btn-link text-muted text-decoration-none p-0 fw-bold extra-small text-uppercase dropdown-toggle border-0" type="button" data-bs-toggle="dropdown">
-                                    Position {% if request.GET.position %}<span class="text-primary">•</span>{% endif %}
-                                </button>
-                                <ul class="dropdown-menu shadow border extra-small">
-                                    <li>
-                                        <a class="dropdown-item {% if not request.GET.position %}active{% endif %}"
-                                           href="?name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&priority={{ request.GET.priority|default:'' }}&status={{ request.GET.status|default:'' }}">
-                                           All Positions
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider my-1"></li>
-                                    {% for pos in positions %}
-                                        <li>
-                                            <a class="dropdown-item {% if request.GET.position == pos.id|stringformat:'s' %}active{% endif %}"
-                                               href="?position={{ pos.id }}&name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&priority={{ request.GET.priority|default:'' }}&status={{ request.GET.status|default:'' }}">
-                                               {{ pos.name }}
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </th>
-
+                        <th class="ps-4 py-3" style="width: 26%;">Task Name</th>
+                        <th class="py-3" style="width: 14%;">Type</th>
+                        <th class="py-3" style="width: 14%;">Priority</th>
+                        <th class="py-3" style="width: 14%;">Status</th>
+                        <th class="py-3" style="width: 18%;">Position</th>
                         <th class="text-end pe-4 py-3 fw-bold text-nowrap" style="width: 14%;">Actions</th>
                     </tr>
                 </thead>
@@ -179,7 +76,7 @@
                     {% for task in task_list %}
                     <tr>
                         <td class="ps-4">
-                            <a href="{% url 'task-manager:task-detail' pk=task.id %}" class="task-row-link d-block text-truncate">
+                            <a href="{% url 'task_manager:task-detail' pk=task.id %}" class="task-row-link d-block text-truncate">
                                 {{ task.name }}
                             </a>
                             <span class="text-muted extra-small">
@@ -201,14 +98,14 @@
                             {% endif %}
                         </td>
                         <td>
-                            <form method="post" action="{% url 'task-manager:task-toggle-status' pk=task.id %}" class="d-inline">
+                            <form method="post" action="{% url 'task_manager:task-toggle-status' pk=task.id %}" class="d-inline">
                                 {% csrf_token %}
                                 {% if task.is_completed %}
-                                    <button type="submit" class="btn btn-sm bg-success-subtle text-success border border-success-subtle fw-medium rounded-2 status-btn" title="Click to reopen task">
+                                    <button type="submit" class="btn btn-sm bg-success-subtle text-success border border-success-subtle fw-medium rounded-2 status-btn">
                                         <i class="bi bi-check-all me-1"></i> Completed
                                     </button>
                                 {% else %}
-                                    <button type="submit" class="btn btn-sm bg-warning-subtle text-warning border border-warning-subtle fw-medium rounded-2 status-btn" title="Click to mark as done">
+                                    <button type="submit" class="btn btn-sm bg-warning-subtle text-warning border border-warning-subtle fw-medium rounded-2 status-btn">
                                         <i class="bi bi-clock me-1"></i> In Progress
                                     </button>
                                 {% endif %}
@@ -227,13 +124,13 @@
                         </td>
                         <td class="text-end pe-4">
                             <div class="btn-group">
-                                <a href="{% url 'task-manager:task-detail' pk=task.id %}" class="btn btn-sm btn-light border" title="View details">
+                                <a href="{% url 'task_manager:task-detail' pk=task.id %}" class="btn btn-sm btn-light border">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a href="{% url 'task-manager:task-update' pk=task.id %}" class="btn btn-sm btn-light border" title="Edit task">
+                                <a href="{% url 'task_manager:task-update' pk=task.id %}" class="btn btn-sm btn-light border">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a href="{% url 'task-manager:task-delete' pk=task.id %}" class="btn btn-sm btn-light border text-danger" title="Delete task">
+                                <a href="{% url 'task_manager:task-delete' pk=task.id %}" class="btn btn-sm btn-light border text-danger">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </div>
@@ -241,40 +138,12 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="6" class="text-center py-4 text-muted">No tasks found matching your criteria.</td>
+                        <td colspan="6" class="text-center py-4 text-muted">No tasks found.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-
-    {% if is_paginated %}
-    <nav class="d-flex justify-content-center">
-        <ul class="pagination pagination-sm gap-1">
-            {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link rounded-2 border text-dark"
-                       href="?page={{ page_obj.previous_page_number }}&name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&priority={{ request.GET.priority|default:'' }}&status={{ request.GET.status|default:'' }}&position={{ request.GET.position|default:'' }}">
-                       &laquo;
-                    </a>
-                </li>
-            {% endif %}
-
-            <li class="page-item active">
-                <span class="page-link rounded-2">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
-            </li>
-
-            {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link rounded-2 border text-dark"
-                       href="?page={{ page_obj.next_page_number }}&name={{ request.GET.name|default:'' }}&task_type={{ request.GET.task_type|default:'' }}&priority={{ request.GET.priority|default:'' }}&status={{ request.GET.status|default:'' }}&position={{ request.GET.position|default:'' }}">
-                       &raquo;
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
 </div>
 {% endblock %}
