@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import (
+from task_manager.views import (
     PositionCreateView,
     PositionDeleteView,
     PositionDetailView,
     PositionListView,
     PositionUpdateView,
+    SignUpView,
     TaskCreateView,
     TaskDeleteView,
     TaskDetailView,
@@ -18,7 +19,6 @@ from .views import (
     WorkerUpdateView,
     index,
 )
-
 
 app_name = "task_manager"
 
@@ -103,5 +103,10 @@ urlpatterns = [
         "tasks/<int:pk>/toggle-status/",
         TaskToggleStatusView.as_view(),
         name="task-toggle-status",
+    ),
+    path(
+        "register/",
+        SignUpView.as_view(),
+        name="register",
     ),
 ]

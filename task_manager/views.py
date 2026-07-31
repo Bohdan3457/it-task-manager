@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q, QuerySet
 from django.http import HttpRequest, HttpResponse
@@ -7,6 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View, generic
 
+from task_manager.forms import WorkerCreationForm
 from task_manager.models import Position, Task, TaskType, Worker
 
 
@@ -151,7 +151,7 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
 
 class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
-    form_class = UserCreationForm
+    form_class = WorkerCreationForm
     template_name = 'task_manager/worker_form.html'
     success_url = reverse_lazy('task_manager:worker-list')
 
@@ -208,3 +208,10 @@ class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Position
     template_name = 'task_manager/position_confirm_delete.html'
     success_url = reverse_lazy('task_manager:position-list')
+
+
+class SignUpView(generic.CreateView):
+    model = Worker
+    form_class = WorkerCreationForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('login')

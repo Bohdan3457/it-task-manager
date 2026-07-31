@@ -1,6 +1,6 @@
 from django import forms
-from .models import Task, Worker
 from django.contrib.auth.forms import UserCreationForm
+from task_manager.models import Task, Worker
 
 
 class TaskForm(forms.ModelForm):
@@ -25,10 +25,10 @@ class TaskForm(forms.ModelForm):
 
 
 class WorkerCreationForm(UserCreationForm):
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = Worker
         fields = UserCreationForm.Meta.fields + (
             "first_name",
             "last_name",
-            "position"
+            "position",
         )
