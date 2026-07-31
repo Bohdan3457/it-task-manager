@@ -20,7 +20,8 @@ from task_manager.views import (
     index,
 )
 
-app_name = "task_manager"
+# ✅ Виправлено з task_manager на task-manager
+app_name = "task-manager"
 
 urlpatterns = [
     path("", index, name="index"),
