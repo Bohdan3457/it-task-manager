@@ -10,7 +10,8 @@ SECRET_KEY = os.environ.get(
     'django-insecure-lz4gqbazmbi!1k0m2gqt&!)5(g0l7nf5vfr7=@r_dt1^9wauva',
 )
 
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.onrender.com']
 
@@ -20,7 +21,6 @@ DATABASES = {
         conn_max_age=600
     )
 }
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -64,7 +64,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'it_company_manager.wsgi.application'
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': (
@@ -100,11 +99,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'task_manager.Worker'
