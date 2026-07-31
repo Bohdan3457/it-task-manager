@@ -49,11 +49,11 @@
         </div>
         <div class="d-flex gap-2">
             {% if request.GET.name or request.GET.task_type or request.GET.priority or request.GET.status or request.GET.position %}
-                <a href="{% url 'task_manager:task-list' %}" class="btn btn-light border text-muted fw-medium rounded-3 px-3">
+                <a href="{% url 'task-manager:task-list' %}" class="btn btn-light border text-muted fw-medium rounded-3 px-3">
                     <i class="bi bi-x-lg me-1"></i> Clear Filters
                 </a>
             {% endif %}
-            <a href="{% url 'task_manager:task-create' %}" class="btn btn-primary px-3 rounded-3 shadow-sm fw-medium">
+            <a href="{% url 'task-manager:task-create' %}" class="btn btn-primary px-3 rounded-3 shadow-sm fw-medium">
                 <i class="bi bi-plus-lg me-1"></i> New Task
             </a>
         </div>
@@ -179,7 +179,7 @@
                     {% for task in task_list %}
                     <tr>
                         <td class="ps-4">
-                            <a href="{% url 'task_manager:task-detail' pk=task.id %}" class="task-row-link d-block text-truncate">
+                            <a href="{% url 'task-manager:task-detail' pk=task.id %}" class="task-row-link d-block text-truncate">
                                 {{ task.name }}
                             </a>
                             <span class="text-muted extra-small">
@@ -201,7 +201,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            <form method="post" action="{% url 'task_manager:task-toggle-status' pk=task.id %}" class="d-inline">
+                            <form method="post" action="{% url 'task-manager:task-toggle-status' pk=task.id %}" class="d-inline">
                                 {% csrf_token %}
                                 {% if task.is_completed %}
                                     <button type="submit" class="btn btn-sm bg-success-subtle text-success border border-success-subtle fw-medium rounded-2 status-btn" title="Click to reopen task">
@@ -227,13 +227,13 @@
                         </td>
                         <td class="text-end pe-4">
                             <div class="btn-group">
-                                <a href="{% url 'task_manager:task-detail' pk=task.id %}" class="btn btn-sm btn-light border" title="View details">
+                                <a href="{% url 'task-manager:task-detail' pk=task.id %}" class="btn btn-sm btn-light border" title="View details">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a href="{% url 'task_manager:task-update' pk=task.id %}" class="btn btn-sm btn-light border" title="Edit task">
+                                <a href="{% url 'task-manager:task-update' pk=task.id %}" class="btn btn-sm btn-light border" title="Edit task">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a href="{% url 'task_manager:task-delete' pk=task.id %}" class="btn btn-sm btn-light border text-danger" title="Delete task">
+                                <a href="{% url 'task-manager:task-delete' pk=task.id %}" class="btn btn-sm btn-light border text-danger" title="Delete task">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </div>
