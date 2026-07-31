@@ -20,3 +20,9 @@ You can test all application features using the pre-configured superuser account
 - Password: Admintest123!
 
 This account has full administrator privileges to create, edit, and manage all records.
+
+## Live Demo
+
+- **URL:** https://it-task-manager-o45t.onrender.com
+
+User registration is enabled. You can register a new account to test the application.
