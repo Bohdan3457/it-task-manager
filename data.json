@@ -1,0 +1,553 @@
+[
+{
+  "model": "task_manager.position",
+  "pk": 1,
+  "fields": {
+    "name": "Python Developer"
+  }
+},
+{
+  "model": "task_manager.position",
+  "pk": 2,
+  "fields": {
+    "name": "Frontend Developer"
+  }
+},
+{
+  "model": "task_manager.position",
+  "pk": 3,
+  "fields": {
+    "name": "QA Engineer"
+  }
+},
+{
+  "model": "task_manager.position",
+  "pk": 4,
+  "fields": {
+    "name": "DevOps Engineer"
+  }
+},
+{
+  "model": "task_manager.position",
+  "pk": 5,
+  "fields": {
+    "name": "UI/UX Designer"
+  }
+},
+{
+  "model": "task_manager.position",
+  "pk": 6,
+  "fields": {
+    "name": "Project Manager"
+  }
+},
+{
+  "model": "task_manager.position",
+  "pk": 7,
+  "fields": {
+    "name": "HR Manager"
+  }
+},
+{
+  "model": "task_manager.position",
+  "pk": 8,
+  "fields": {
+    "name": "Data Analyst"
+  }
+},
+{
+  "model": "task_manager.position",
+  "pk": 9,
+  "fields": {
+    "name": "Content Creator"
+  }
+},
+{
+  "model": "task_manager.position",
+  "pk": 10,
+  "fields": {
+    "name": "Account Manager"
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$GSu2avQ6Vd226b2U3WMvOj$z/guUd2cjWjcHa/p9QvXi2FXULGFZfmhb2HyQxSDtCk=",
+    "last_login": "2026-07-30T16:21:58.737Z",
+    "is_superuser": true,
+    "username": "adminuser",
+    "first_name": "adminuser",
+    "last_name": "admin",
+    "email": "adminuser@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-07-27T17:28:31.703Z",
+    "position": 6,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$JMZmkhlczBlpR2RXC3AqKA$7spyLATkiIw5sAjbSFwYhxX58MZGzrd6jchOpCSF22Q=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Nikita2001",
+    "first_name": "Nikita",
+    "last_name": "Lysenko",
+    "email": "nikita2001@gamil.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-27T17:44:02.900Z",
+    "position": 1,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$punH99pflIiH9jisxXd1av$PW6jw8GpfORdseBWBUi4A9uGfb5zh3GsJPnajQrM7vg=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Alisa20",
+    "first_name": "Alisa",
+    "last_name": "Sela",
+    "email": "alisa20@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-27T17:46:19.121Z",
+    "position": 5,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$wDliMIUVexV5re68yhdmYW$KLop4T42SGXzsytIOYxCUSu8W3MfXUDSi4Sj807r3QU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "PetroLike",
+    "first_name": "Petro",
+    "last_name": "Niukin",
+    "email": "Petrolike@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-27T17:48:00.298Z",
+    "position": 7,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$iBjdoPc3wmAd5n6q0YgA1K$UL4i49zP65A41hSM98yk2V0wPKBDC7XxHyp0EP7NVWo=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "SarahAli",
+    "first_name": "Sarah",
+    "last_name": "Ali",
+    "email": "sarahali24@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-27T17:49:21.903Z",
+    "position": 2,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$kUIJVAyJT3ZqUFt1stKxCu$UXgECxcRYTTE92uCAQLPjOkoUuASZJECxUCfJzDAdBw=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ViktoriiaTkachenko123",
+    "first_name": "Viktoriia",
+    "last_name": "Tkachenko",
+    "email": "Victoriia@gamil.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-27T17:51:32.205Z",
+    "position": 4,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$hdjOJxJsvBcMVCtiptmiQ4$Z/oK8jQcone5tiRrt8tCc2dqhOvExAhQ721dazd8SJw=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Lusicook",
+    "first_name": "Lusi",
+    "last_name": "Cook",
+    "email": "LusiKooc@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-27T17:52:37.118Z",
+    "position": 8,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$kgUwJVhfTOHM5AXmHqx06n$hSghyCwtB0Zusz0UBTEYhqduunilTLFGsbYCunWfGtQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "AndriiHom",
+    "first_name": "Andrii",
+    "last_name": "Homakov",
+    "email": "AndreyHomakov@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-27T17:54:18.517Z",
+    "position": 10,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$EXeuPBm5YnMJwHzfaw4RWO$ChzmwBgSVB8Avpm6VB0hJC6QtAn6mPhAgFHUO/EIxcQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ILLiya",
+    "first_name": "Illiya",
+    "last_name": "Berezny",
+    "email": "Illiya34@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-27T17:57:55.156Z",
+    "position": 3,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$qLOWtiq599ZSzudcDkTYS8$kQ9lSF4A6VscyZXlVUMGmCkK/gG4zETl+QWk3PVJCSA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Alex",
+    "first_name": "Alexandr",
+    "last_name": "Sovko",
+    "email": "SovkoAlex@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-07-27T18:00:01.547Z",
+    "position": 9,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.worker",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$eHQD0HfHhvif3lAE4XtsDF$XZKiNR5bJxy1buUKQiHsAqzHdfGifHYmVZu7bHZUc5I=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "Adminuser",
+    "first_name": "",
+    "last_name": "",
+    "email": "bohdankhomenko04@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-07-31T18:03:02.749Z",
+    "position": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "task_manager.tasktype",
+  "pk": 1,
+  "fields": {
+    "name": "Bugfix"
+  }
+},
+{
+  "model": "task_manager.tasktype",
+  "pk": 2,
+  "fields": {
+    "name": "Feature"
+  }
+},
+{
+  "model": "task_manager.tasktype",
+  "pk": 3,
+  "fields": {
+    "name": "Refactoring"
+  }
+},
+{
+  "model": "task_manager.tasktype",
+  "pk": 4,
+  "fields": {
+    "name": "Infrastructure"
+  }
+},
+{
+  "model": "task_manager.tasktype",
+  "pk": 5,
+  "fields": {
+    "name": "Design"
+  }
+},
+{
+  "model": "task_manager.tasktype",
+  "pk": 6,
+  "fields": {
+    "name": "Analytics"
+  }
+},
+{
+  "model": "task_manager.tasktype",
+  "pk": 7,
+  "fields": {
+    "name": "Documentation"
+  }
+},
+{
+  "model": "task_manager.tasktype",
+  "pk": 8,
+  "fields": {
+    "name": "HR / Management"
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 1,
+  "fields": {
+    "name": "Fix JWT auth token expiration issue",
+    "description": "Users get logged out every 5 minutes due to improper validation of the refresh token. Need to update token lifecycle in backend middleware and fix auto-refresh on frontend.",
+    "deadline": "2026-07-29T16:33:00Z",
+    "is_completed": true,
+    "priority": "URGENT",
+    "task_type": 1,
+    "assignees": [
+      2,
+      9
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 2,
+  "fields": {
+    "name": "Setup CI/CD pipeline for Staging environment",
+    "description": "Configure automated deployment via GitHub Actions whenever code is merged into the staging branch.",
+    "deadline": "2026-07-30T18:30:00Z",
+    "is_completed": false,
+    "priority": "MEDIUM",
+    "task_type": 4,
+    "assignees": [
+      2,
+      6
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 3,
+  "fields": {
+    "name": "Conduct System Security & Vulnerability Audit",
+    "description": "Scan all Python/Node.js dependencies for known CVE vulnerabilities, update outdated packages, and secure exposed API endpoints before the external compliance check.",
+    "deadline": "2026-07-29T16:37:00Z",
+    "is_completed": true,
+    "priority": "URGENT",
+    "task_type": 4,
+    "assignees": [
+      2,
+      6
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 4,
+  "fields": {
+    "name": "Renew Annual Contract with Enterprise Client 'Acme Corp'",
+    "description": "Negotiate terms for the upcoming annual extension, finalize custom SLA conditions with legal, and obtain signatures on the renewal contract.",
+    "deadline": "2026-07-29T21:40:00Z",
+    "is_completed": true,
+    "priority": "URGENT",
+    "task_type": 8,
+    "assignees": [
+      8
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 5,
+  "fields": {
+    "name": "Migrate database to PostgreSQL 16",
+    "description": "Upgrade main database engine on staging and production instances. Re-index primary tables and optimize slow-running analytical SQL queries.",
+    "deadline": "2026-07-25T16:44:00Z",
+    "is_completed": false,
+    "priority": "HIGH",
+    "task_type": 3,
+    "assignees": [
+      2,
+      9
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 6,
+  "fields": {
+    "name": "Fix mobile responsive bugs on User Profile page",
+    "description": "The user avatar container and edit buttons overlap on screens smaller than 375px wide. Adjust CSS grid and media queries for proper alignment.",
+    "deadline": "2026-07-25T17:45:00Z",
+    "is_completed": false,
+    "priority": "LOW",
+    "task_type": 1,
+    "assignees": [
+      5
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 7,
+  "fields": {
+    "name": "Conduct Q3 Performance Reviews for Tech Team",
+    "description": "Hold individual 1-on-1 performance review sessions with engineering leads, gather peer feedback, and update compensation/promotion documentation.",
+    "deadline": "2026-07-26T16:46:00Z",
+    "is_completed": true,
+    "priority": "MEDIUM",
+    "task_type": 8,
+    "assignees": [
+      1,
+      4
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 8,
+  "fields": {
+    "name": "Implement dark theme toggle for Dashboard",
+    "description": "Add a persistent light/dark theme switcher in user settings that stores preferences in localStorage and respects system color scheme preferences.",
+    "deadline": "2026-08-03T17:07:00Z",
+    "is_completed": false,
+    "priority": "MEDIUM",
+    "task_type": 2,
+    "assignees": [
+      3,
+      5
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 9,
+  "fields": {
+    "name": "Setup CI/CD pipeline for Staging environment",
+    "description": "Configure automated build and deployment workflows using GitHub Actions to trigger automated tests and deploy to staging on pull request merge.",
+    "deadline": "2026-07-30T17:09:00Z",
+    "is_completed": false,
+    "priority": "HIGH",
+    "task_type": 4,
+    "assignees": [
+      6
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 10,
+  "fields": {
+    "name": "Write end-to-end tests for Checkout flow",
+    "description": "Implement automated UI integration tests covering item addition, promo code application, credit card validation, and receipt generation using Playwright.",
+    "deadline": "2026-08-05T17:10:00Z",
+    "is_completed": false,
+    "priority": "MEDIUM",
+    "task_type": 2,
+    "assignees": [
+      9
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 11,
+  "fields": {
+    "name": "Redesign Task Detail view in Figma",
+    "description": "Create updated Figma wireframes and high-fidelity UI mockups for the task view modal, incorporating file attachments, rich text comments, and history log.",
+    "deadline": "2026-08-01T17:11:00Z",
+    "is_completed": false,
+    "priority": "MEDIUM",
+    "task_type": 5,
+    "assignees": [
+      3
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 12,
+  "fields": {
+    "name": "Build Monthly Sales & Churn Dashboard in Metabase",
+    "description": "Connect reporting database to Metabase and design interactive visual charts tracking Monthly Recurring Revenue (MRR), Customer Churn Rate, and LTV.",
+    "deadline": "2026-08-10T17:11:00Z",
+    "is_completed": false,
+    "priority": "HIGH",
+    "task_type": 6,
+    "assignees": [
+      7
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 13,
+  "fields": {
+    "name": "Create promotional video for Product Hunt launch",
+    "description": "Record screen captures of key platform workflows, edit a high-energy 60-second teaser video with voiceover, and prepare graphics for the upcoming Product Hunt campaign.",
+    "deadline": "2026-08-15T17:12:00Z",
+    "is_completed": false,
+    "priority": "HIGH",
+    "task_type": 2,
+    "assignees": [
+      10
+    ]
+  }
+},
+{
+  "model": "task_manager.task",
+  "pk": 14,
+  "fields": {
+    "name": "Organize Team Building Event",
+    "description": "Research locations, collect dietary requirements, book catering, and send calendar invites for the upcoming summer outdoor retreat.",
+    "deadline": "2026-08-26T17:13:00Z",
+    "is_completed": false,
+    "priority": "LOW",
+    "task_type": 8,
+    "assignees": [
+      4
+    ]
+  }
+}
+]
