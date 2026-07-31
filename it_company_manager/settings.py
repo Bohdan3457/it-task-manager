@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+import dj_database_url
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,9 +10,17 @@ SECRET_KEY = os.environ.get(
     'django-insecure-lz4gqbazmbi!1k0m2gqt&!)5(g0l7nf5vfr7=@r_dt1^9wauva',
 )
 
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.onrender.com']
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f'sqlite: ///{BASE_DIR / "db.sqlite3"}',
+        conn_max_age=600
+    )
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,6 +36,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -52,13 +63,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'it_company_manager.wsgi.application'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -95,7 +99,12 @@ USE_I18N = True
 
 USE_TZ = True
 
+
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+if not DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'task_manager.Worker'
 

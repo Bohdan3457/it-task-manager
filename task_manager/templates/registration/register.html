@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <div class="card shadow-sm p-4">
-                <h2 class="mb-4">Login</h2>
+                <h2 class="mb-4">Sign Up</h2>
 
                 <form method="post" novalidate>
                     {% csrf_token %}
@@ -14,7 +14,7 @@
                     {{ form|crispy }}
 
                     <div class="mt-4">
-                        <button type="submit" class="btn btn-primary px-4">Submit</button>
+                        <button type="submit" class="btn btn-success px-4">Register</button>
                         <a href="{% url 'task_manager:index' %}" class="btn btn-outline-secondary ms-2">Cancel</a>
                     </div>
                 </form>
@@ -22,8 +22,8 @@
                 <hr class="my-4">
 
                 <p class="mb-0 text-center">
-                    Don't have an account?
-                    <a href="{% url 'task_manager:register' %}" class="fw-bold">Sign Up</a>
+                    Already have an account?
+                    <a href="{% url 'login' %}" class="fw-bold">Log in</a>
                 </p>
             </div>
         </div>
